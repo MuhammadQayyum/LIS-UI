@@ -1,0 +1,71 @@
+body {
+  background-image: url('../images/lab1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  }
+
+  h2.head{
+    text-align: center;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  a.nav-link{
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  th.r{
+  font-size: 14px;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  td.r{
+  font-size: 14px;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  a.r{
+  font-size: 15px;
+  font-family: "Audiowide", sans-serif;
+  }
+  
+
+  a.e{
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  a.e1{
+  color : red;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  button.i{
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  input.i{
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Audiowide", sans-serif;
+  }
+
+  form.addForm{
+    max-width: 500px;
+    margin: auto;
+  }
+
+  div.addPatient{
+    margin-left: 80px;
+  }
