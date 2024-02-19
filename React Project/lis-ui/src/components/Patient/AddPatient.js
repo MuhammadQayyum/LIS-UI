@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import './App.css';
-import api from '../api/patients'
+import { Link, useNavigate } from "react-router-dom";
+import '../App.css';
+import api from '../../api/patients'
 
 class AddPatient extends React.Component {
   state = { 
@@ -31,15 +31,54 @@ api.get("/allPhysicians")
 })
 }
 
+handleCreate = (e) => {
+  // Perform your create logic here
+
+  // After successful create, navigate back to the index page
+  const navigate = useNavigate();
+  navigate('/');
+};
+
+requiredFieldsValidation = (e) => {
+  if (e.lname === "" || e.fname === "" || e.dob === "" || e.orderDate === "" || e.phyId === ""){
+    alert("Please fill out all the required fields.");
+    return false;
+  } else{
+    return true;
+  }
+}
+
+ssnValidation = (e) => {
+  let isNum = /^\d+$/.test(e);
+  if (e.length > 0){
+    if (isNum === false || e.length < 9){
+    alert("Please Make sure SSN is correct and has 9 Digits.");
+    return false;
+  } else{
+    return true;
+  }
+}
+  else{
+    return true;
+  }
+}
+
 add = (e) => {
   e.preventDefault();
-  if (this.state.state1.patient.lname === "" || this.state.state1.patient.fname === "" || this.state.state1.patient.dob === "" || this.state.state1.patient.orderDate === "" || this.state.state1.patient.phy === ""){
-    alert("Please fill out all the required fields");
-    return
+
+  let ssn;
+  const fieldsVal = this.requiredFieldsValidation(this.state.state1.patient);
+
+  if (fieldsVal === true){
+    ssn = this.ssnValidation(this.state.state1.patient.ssn);
+    console.log(ssn);
   }
-  console.log(this.state.state1.patient);
+
+  if (ssn === true){
   this.props.addPatientHandler(this.state.state1.patient);
-  this.setState({state1: {patient : { address: "", zipCode: "", orderDate: "", phyId: "", state: "", fname: "", city: "", ssn: "", lname: "", dob: ""}}})
+  // this.setState({state1: {patient : { address: "", zipCode: "", orderDate: "", phyId: "", state: "", fname: "", city: "", ssn: "", lname: "", dob: ""}}})
+  this.handleCreate();
+  }
 }
 
 handleInputChange = (event) => {
@@ -65,14 +104,14 @@ handleInputChange = (event) => {
           <div class="border border-secondary rounded p-3">
       <div class="addPatient form-group-row">
       
-      <div><label class="col-sm-4 col-form-label">Last Name:</label>
+      <div><label class="col-sm-4 col-form-label">Last Name*:</label>
       <div class="col-sm-8">
         <input type="text" class="form-control" name="lname" value={this.state.state1.patient.lname} onChange={this.handleInputChange}/>
       </div></div>
       
 
     <div class="form-group-row">
-      <label class="col-sm-4 col-form-label">First Name:</label>
+      <label class="col-sm-4 col-form-label">First Name*:</label>
       <div class="col-sm-8">
         <input type="text" class="form-control" name="fname" value={this.state.state1.patient.fname} onChange={this.handleInputChange}/>
 
@@ -82,7 +121,7 @@ handleInputChange = (event) => {
     </div>
 
     <div class="form-group-row">
-      <label class="col-sm-4 col-form-label">DOB:</label>
+      <label class="col-sm-4 col-form-label">DOB*:</label>
       <div class="col-sm-8">
         <input type="date" class="form-control" name="dob" value={this.state.state1.patient.dob} onChange={this.handleInputChange}/>
 
@@ -94,7 +133,7 @@ handleInputChange = (event) => {
     <div class="form-group-row">
       <label class="col-sm-4 col-form-label">SSN:</label>
       <div class="col-sm-8">
-        <input id="ssn" name="ssn" class="form-control" value={this.state.state1.patient.ssn} onChange={(e) => this.setState({state1: {ssn: e.target.value}})}/>
+        <input id="ssn" name="ssn" class="form-control" minLength={0} maxLength={9} value={this.state.state1.patient.ssn} onChange={this.handleInputChange}/>
 
       </div>
 
@@ -104,7 +143,7 @@ handleInputChange = (event) => {
     <div class="form-group-row">
       <label class="col-sm-4 col-form-label">Address:</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" value={this.state.state1.patient.address} onChange={(e) => this.setState({state1: {address: e.target.value}})}/>
+        <input type="text" class="form-control" name="address" value={this.state.state1.patient.address} onChange={this.handleInputChange}/>
 
       </div>
 
@@ -114,7 +153,7 @@ handleInputChange = (event) => {
     <div class="form-group-row">
       <label class="col-sm-4 col-form-label">City:</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" value={this.state.state1.city} onChange={(e) => this.setState({state1: {city: e.target.value}})}/>
+        <input type="text" class="form-control" name="city" value={this.state.state1.patient.city} onChange={this.handleInputChange}/>
 
       </div>
 
@@ -124,7 +163,7 @@ handleInputChange = (event) => {
     <div class="form-group-row">
       <label class="col-sm-4 col-form-label">State:</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" value={this.state.state1.state} onChange={(e) => this.setState({state1: {state: e.target.value}})}/>
+        <input type="text" class="form-control" name="state" value={this.state.state1.patient.state} onChange={this.handleInputChange}/>
 
       </div>
 
@@ -136,7 +175,7 @@ handleInputChange = (event) => {
     <div class="form-group-row">
       <label class="col-sm-4 col-form-label">Zip Code:</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" value={this.state.state1.zipCode} onChange={(e) => this.setState({state1: {zipCode: e.target.value}})}/>
+        <input type="text" class="form-control" name="zipCode" value={this.state.state1.patient.zipCode} onChange={this.handleInputChange}/>
 
 
       </div>
@@ -145,7 +184,7 @@ handleInputChange = (event) => {
     </div>
 
     <div class="form-group-row">
-      <label class="col-sm-4 col-form-label">Order Date:</label>
+      <label class="col-sm-4 col-form-label">Order Date*:</label>
       <div class="col-sm-8">
         <input type="date" class="form-control" name="orderDate" value={this.state.state1.orderDate} onChange={this.handleInputChange}/>
 
@@ -156,7 +195,7 @@ handleInputChange = (event) => {
 
     <div class="form-group-row">
 
-      <label class="col-sm-4 col-form-label">Physician</label>
+      <label class="col-sm-4 col-form-label">Physician*:</label>
       <div class="col-sm-8">
         <td>
           <select class="form-control" name="phyId" value={this.state.state1.phyId} onChange={this.handleInputChange}>
@@ -173,8 +212,8 @@ handleInputChange = (event) => {
     </div>
 
     <div class="text-center">
-      <button type="submit" class="btn btn-primary m-2">Save</button>
-      <Link to="/"><button type="button" class="btn btn-secondary m-2">Cancel</button></Link>
+      <button type="submit" class="btn btn-primary m-2">Add Patient</button>
+      <Link to="/" ><button type="button" class="btn btn-secondary m-2">Cancel</button></Link>
 
     </div>
 

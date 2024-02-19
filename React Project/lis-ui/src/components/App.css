@@ -6,7 +6,7 @@ body {
   }
 
   h2.head{
-    text-align: center;
+  text-align: center;
   font-family: "Audiowide", sans-serif;
   }
 
@@ -18,12 +18,12 @@ body {
   }
 
   th.r{
-  font-size: 14px;
+  font-size: 15px;
   font-family: "Audiowide", sans-serif;
   }
 
   td.r{
-  font-size: 14px;
+  font-size: 15px;
   font-family: "Audiowide", sans-serif;
   }
 
@@ -61,11 +61,35 @@ body {
   font-family: "Audiowide", sans-serif;
   }
 
+  div.row{
+    margin-left: 90px;
+  }
+
   form.addForm{
     max-width: 500px;
     margin: auto;
   }
 
-  div.addPatient{
-    margin-left: 80px;
+  form.addPhy{
+    max-width: 500px;
+    margin: auto;
   }
+
+  form.editPhy{
+    max-width: 500px;
+    margin: auto;
+  }
+
+  div.editForm{
+    max-width: 500px;
+    margin: auto;
+  }
+
+  table{
+    table-layout: auto;
+    width: 100%;
+  }
+
+  /* div.addPatient{
+    margin-left: 80px;
+  } */
