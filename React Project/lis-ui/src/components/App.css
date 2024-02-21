@@ -85,6 +85,16 @@ body {
     margin: auto;
   }
 
+  form.addOrderList{
+    max-width: 500px;
+    margin: auto;
+  }
+
+  form.editOrderList{
+    max-width: 500px;
+    margin: auto;
+  }
+
   table{
     table-layout: auto;
     width: 100%;
